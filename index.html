@@ -1,0 +1,99 @@
+
+<html lang="et">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>PID simulator</title>
+	<link rel="stylesheet" href="assets/common.css">
+</head>
+<body style="zoom: 1;" ng-app='pidSimulator'>
+
+	<div id="common">
+		<button ng-click="calibrate()">Calibrate</button>
+		<input ng-model="raw" ng-list required>
+		<button ng-click="racing = !racing">{{racing ? "Pause" : "Play"}}</button>
+		<input type="text" ng-model="stepSpeed">
+		<ul id="mainSensors" class="sensors" ng-mousemove="moveTrack($event)">
+			<li class="mainSensor" ng-class="{first: $first, last: $last}" ng-repeat="r in raw track by $index">{{r}}</li>
+			<li class="track" style="left: {{trackPosition}}"></li>
+		</ul>
+	</div>
+
+	<div id="main">
+		<section id="old" class="simulator" ng-class="{fadeOut: off.old}" ng-controller="Old as old" ng-dblclick="switch('old')">
+			<ol>
+				<li>
+					<span>P = <input type="text" ng-model="P" class="short">; I = <input type="text" ng-model="I" class="short">; D = <input type="text" ng-model="D" class="short">;</span>
+				</li>
+				<li>
+					<input ng-model="value" ng-list required>
+					<ul class="sensors">
+						<li class="sensor" ng-repeat="a in value track by $index">{{a}}</li>
+					</ul>
+				</li>
+				<li>
+					<ul class="sensors">
+						<li class="sensor" ng-repeat="b in bn track by $index">{{b}}</li>
+					</ul>
+					<span>sum(Bn#): {{bSum}}</span>
+				</li>
+				<li>
+					<span>pos: {{pos}}</span>
+				</li>
+				<li>
+					<span>vahe = P &times; {{pos}} + I &times; {{sum}} + D &times; {{pos - posLast}} = {{(P*pos + I*sum + D*(pos - posLast)).toFixed()}};</span>
+					<span>vahe = {{difference}};</span>
+				</li>
+				<li>
+					<span class="speeds">
+						<span>{{leftSpeed.toFixed()}}</span> - <span>{{rightSpeed.toFixed()}}</span>
+					</span>
+				</li>
+			</ol>
+		</section>
+
+		<section id="new" class="simulator" ng-class="{fadeOut: off.new}" ng-controller="New" ng-dblclick="switch('new')">
+			<ol>
+				<li>
+					<span>P = <input type="text" ng-model="P" class="short">; I = <input type="text" ng-model="I" class="short">; D = <input type="text" ng-model="D" class="short">;</span>
+				</li>
+				<li>
+					<input ng-model="value" ng-list required>
+					<ul class="sensors">
+						<li class="sensor" ng-repeat="a in value track by $index">{{a}}</li>
+					</ul>
+					<span>m = 100 / sum(sensorValues) = {{}} = {{m.toFixed(3)}}</span>
+				</li>
+				<li>
+					<ul class="sensors">
+						<li class="sensor" ng-repeat="n in normalized track by $index">{{n.toFixed()}}</li>
+					</ul>
+				</li>
+				<li>
+					<span>pos: {{pos.toFixed()}}</span>
+				</li>
+				<li>
+					<span>diff = P &times; {{pos.toFixed(1)}} + I &times; {{rollingMean.toFixed(1)}} + D &times; {{(pos - posLast).toFixed(1)}} = {{(P*pos).toFixed()}} + {{(I*rollingMean).toFixed()}} + {{D*(pos - posLast).toFixed()}};</span>
+					<span>diff = {{difference.toFixed()}};</span>
+					<span>last pos = {{posLast.toFixed()}};</span>
+					<span>topSpeed = {{constraintTopSpeed.toFixed()}};</span>
+				</li>
+				<li>
+					<span class="speeds">
+						<span>{{leftSpeed.toFixed()}}</span> - <span>{{rightSpeed.toFixed()}}</span>
+					</span>
+				</li>
+			</ol>
+		</section>
+	</div>
+
+	<script src="bower_components/lodash/dist/lodash.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	
+	<script src="js/utils.js"></script>
+	<script src="js/index.js"></script>
+	<script src="js/old.js"></script>
+	<script src="js/new.js"></script>
+
+</body>
+</html>

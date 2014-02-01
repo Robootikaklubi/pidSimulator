@@ -1,0 +1,122 @@
+.fadeOut {
+	opacity: 0.1;
+}
+
+.simulator li > span {
+	display: block;
+}
+
+.simulator ol {
+  counter-reset: step;
+  list-style-type: none;
+  padding: 0;
+}
+
+.simulator ol > li {
+  position: relative;
+  padding: 10px 5px 10px 60px;
+  min-height: 30px;
+  margin: 5px;
+  border-bottom: 2px solid hsla(193, 58%, 33%, 0.5);
+}
+.simulator ol > li:before {
+  counter-increment: step;
+
+  /*content: counters(step, "...") " ";*/
+  font-size: 40;
+  color: hsla(193, 58%, 33%, 1);
+  /*float: left;*/
+  position: absolute;
+  top: 0;
+  left: 5px;
+  content: counter(step, upper-roman);
+}
+
+#main {
+	margin: auto;
+	width: 1020px
+}
+
+#mainSensors {
+	height: 60px;
+	line-height: 60px;
+	padding: 0;
+}
+
+.mainSensor {
+	margin: 0 15px;
+	width: 30px;
+}
+
+.mainSensor.last {
+	margin-right: 50px;
+}
+
+.mainSensor.first {
+	margin-left: 50px;
+}
+
+.sensors {
+	height: 40px;
+	/*width: 550px;*/
+	margin: 0 auto;
+	line-height: 40px;
+	overflow: hidden;
+	text-align: center;
+	vertical-align: middle;
+	display: table;
+	/*background-color: hsla(0, 0%, 0%, 0.2);*/
+	border-radius: 2px;
+	padding: 5px;
+}
+
+.track {
+	pointer-events:none;
+	z-index: 10;
+	position: relative;
+	display: block;
+	background-color: hsl(337, 100%, 0%);
+	height: 60px;
+	width: 30px;
+}
+
+.sensor, .mainSensor {
+	border: 1px solid hsla(0, 0%, 14%, 1);
+	pointer-events:none;
+	position: relative;
+	z-index: 100;
+	text-align: center;
+	vertical-align: middle;
+	display: block;
+	float: left;
+	background-color: hsla(193, 58%, 28%, 1);
+	color: white;
+	height: 100%;
+	border-radius: 100%;
+}
+
+.sensor {
+	margin: 2px;
+	width: 40px;
+}
+
+.simulator {
+	min-width: 470px;
+	margin: 50px 5px;
+}
+
+#common {
+	text-align: center;
+}
+
+#new {
+	float: right;
+}
+
+#old {
+	float: left;
+}
+
+.short {
+	width: 40px;
+}
