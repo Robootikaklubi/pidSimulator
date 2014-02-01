@@ -73,8 +73,6 @@ function Old($scope, $rootScope, $timeout) {
 	$scope.$watch('value', function () {
 		var me = $scope;
 
-		console.log('value', me.value, me.bn);
-
 		me.bn = _.map(me.value, function (value, i) {
 			return (+value) * me.bx[i];
 		});
